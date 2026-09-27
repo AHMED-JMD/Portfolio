@@ -1,0 +1,209 @@
+{
+  "baladna/ar-desktop": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2880
+    ]
+  },
+  "baladna/ar-mobile": {
+    "width": 1170,
+    "height": 2532,
+    "widths": [
+      240,
+      480,
+      800,
+      1170
+    ]
+  },
+  "baladna/en-desktop": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2880
+    ]
+  },
+  "baladna/en-mobile": {
+    "width": 1170,
+    "height": 2532,
+    "widths": [
+      240,
+      480,
+      800,
+      1170
+    ]
+  },
+  "luma/home-desktop": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2880
+    ]
+  },
+  "luma/home-mobile": {
+    "width": 1170,
+    "height": 2532,
+    "widths": [
+      240,
+      480,
+      800,
+      1170
+    ]
+  },
+  "luma/seller-desktop": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2880
+    ]
+  },
+  "majalis/home-desktop": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2880
+    ]
+  },
+  "majalis/home-mobile": {
+    "width": 1170,
+    "height": 2532,
+    "widths": [
+      240,
+      480,
+      800,
+      1170
+    ]
+  },
+  "majalis/lesson-desktop": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2880
+    ]
+  },
+  "masar/dashboard": {
+    "width": 2800,
+    "height": 2020,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2400,
+      2800
+    ]
+  },
+  "masar/tracking": {
+    "width": 2360,
+    "height": 1972,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1800,
+      2360
+    ]
+  },
+  "me": {
+    "width": 640,
+    "height": 640,
+    "widths": [
+      240,
+      480,
+      640
+    ]
+  },
+  "oil/deliveries": {
+    "width": 1280,
+    "height": 650,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1280
+    ]
+  },
+  "oil/pumps": {
+    "width": 1280,
+    "height": 650,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1280
+    ]
+  },
+  "pos/bayt-sale": {
+    "width": 1534,
+    "height": 822,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1534
+    ]
+  },
+  "pos/hilal-sale": {
+    "width": 1534,
+    "height": 822,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1534
+    ]
+  },
+  "pos/hilal-split": {
+    "width": 1534,
+    "height": 822,
+    "widths": [
+      240,
+      480,
+      800,
+      1200,
+      1534
+    ]
+  }
+}

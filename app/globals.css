@@ -1,0 +1,712 @@
+@import "tailwindcss";
+@import "./receipt.css";
+@import "./work.css";
+@import "./sections.css";
+
+/* ══════════════════════════════════════════════════════════════════════════
+   "Receipts" — warm paper, ink-black type, one green for "approved".
+   Red is reserved for the pen that strikes out "the product works".
+   Receipts stay paper-coloured in dark mode, like a slip under a desk lamp.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-thud: cubic-bezier(0.2, 1.5, 0.35, 1);
+}
+
+:root {
+  --paper: #f3eee4;
+  --paper-2: #ebe4d6;
+  --card: #fbf8f2;
+  --ink: #1b1713;
+  --ink-2: #544c43;
+  --ink-3: #897f73;
+  --line: rgb(27 23 19 / 0.12);
+  --line-2: rgb(27 23 19 / 0.22);
+  --ok: #17724a;
+  --ok-2: #d8eadc;
+  --pen: #c73e2a;
+  --lift: 0 30px 60px -32px rgb(48 32 16 / 0.45);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .09 0 0 0 0 .06 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #13110e;
+  --paper-2: #1b1814;
+  --card: #1f1b16;
+  --ink: #f1ebe1;
+  --ink-2: #bdb3a5;
+  --ink-3: #8d8377;
+  --line: rgb(241 235 225 / 0.1);
+  --line-2: rgb(241 235 225 / 0.2);
+  --ok: #4cc488;
+  --ok-2: #173626;
+  --pen: #f0664c;
+  --lift: 0 30px 70px -30px rgb(0 0 0 / 0.85);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .88 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+/* Same dark values for visitors without JS whose system is dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --paper: #13110e;
+    --paper-2: #1b1814;
+    --card: #1f1b16;
+    --ink: #f1ebe1;
+    --ink-2: #bdb3a5;
+    --ink-3: #8d8377;
+    --line: rgb(241 235 225 / 0.1);
+    --line-2: rgb(241 235 225 / 0.2);
+    --ok: #4cc488;
+    --ok-2: #173626;
+    --pen: #f0664c;
+    --lift: 0 30px 70px -30px rgb(0 0 0 / 0.85);
+    color-scheme: dark;
+  }
+}
+
+/* Arabic swaps the faces; everything else reads the same tokens. */
+html[lang="ar"] {
+  --font-display: var(--font-amiri), var(--font-fraunces), serif;
+  --font-sans: var(--font-plex-ar), var(--font-geist), system-ui, sans-serif;
+  /* Geist Mono has no Arabic; without this, Arabic in mono styles falls back
+     to a system monospace face that draws every letter unjoined. */
+  --font-mono: var(--font-geist-mono), var(--font-plex-ar), ui-monospace, monospace;
+}
+
+/* Amiri's ascenders and descenders need more room than Fraunces — at the
+   Latin line-heights the struck line collides with the headline below. */
+html[lang="ar"] :is(.hero-title, .case-title, .section-title, .rule-quote, .building-title) {
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* Letter-spacing and uppercase break Arabic joining; Arabic runs in the
+   text face wherever the Latin design uses mono labels. */
+html[lang="ar"]
+  :is(
+    .ticker-row li,
+    .ledger-when,
+    .more-year,
+    .more-stack,
+    .more-status,
+    .chip,
+    .app-tags li,
+    .app-year,
+    .frame-url,
+    .building-pill,
+    .depth-list,
+    .printer-count
+  ) {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
+html[lang="ar"] .ticker-row li {
+  font-size: 0.98rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════ base ═══ */
+
+@layer base {
+  :root {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    /* Safety net: nothing may widen the page sideways. `clip`, unlike
+       `hidden`, creates no scroll container, so the sticky nav still works. */
+    overflow-x: clip;
+    background-color: var(--paper);
+    background-image: var(--grain);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--ok);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ok);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ═════════════════════════════════════════════════════════════ layout ═══ */
+
+.wrap {
+  width: min(100% - 2rem, 76rem);
+  margin-inline: auto;
+}
+.section {
+  padding-block: clamp(4.5rem, 10vw, 8.5rem);
+}
+.skip {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--ink);
+  color: var(--paper);
+}
+.skip:focus {
+  top: 1rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+}
+html[lang="ar"] .eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding-inline: 1.5rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    background-color 0.25s,
+    border-color 0.25s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-line {
+  border: 1px solid var(--line-2);
+}
+.btn-line:hover {
+  border-color: var(--ink);
+}
+.btn-ok {
+  background: var(--ok);
+  color: #fff;
+}
+.btn svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+html[dir="rtl"] .flip-rtl {
+  transform: scaleX(-1);
+}
+
+/* ═════════════════════════════════════════════════════════════════ nav ═══ */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+  border-bottom: 1px solid transparent;
+}
+/* Near-opaque: where backdrop blur isn't supported, text scrolling
+   underneath must not show through the bar. */
+[data-scrolled="true"] .nav {
+  background: color-mix(in oklab, var(--paper) 95%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: var(--line);
+}
+.nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  height: 4.5rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-family: var(--font-fraunces), serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.nav-links {
+  display: none;
+}
+.nav-link {
+  font-size: 0.92rem;
+  color: var(--ink-2);
+  transition: color 0.2s;
+}
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--ink);
+}
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-start: auto;
+}
+.icon-btn {
+  display: grid;
+  place-items: center;
+  min-width: 2.6rem;
+  height: 2.6rem;
+  padding-inline: 0.6rem;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  transition: border-color 0.2s;
+}
+.icon-btn:hover {
+  border-color: var(--ink);
+}
+.icon-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.nav-cta {
+  display: none;
+  min-height: 2.6rem;
+  padding-inline: 1.1rem;
+  font-size: 0.88rem;
+}
+.theme-sun {
+  display: none;
+}
+[data-theme="dark"] .theme-sun {
+  display: block;
+}
+[data-theme="dark"] .theme-moon {
+  display: none;
+}
+@media (min-width: 40rem) {
+  .nav-cta {
+    display: inline-flex;
+  }
+}
+/* On phones the brand, language switch, theme and menu must share ~358px —
+   in Arabic the switch reads "English", which is wider than "العربية". */
+@media (max-width: 30rem) {
+  .nav-bar {
+    gap: 0.6rem;
+  }
+  .nav-tools {
+    gap: 0.35rem;
+  }
+  .brand {
+    gap: 0.5rem;
+    min-width: 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+  }
+  .brand > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-mark {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+  .icon-btn {
+    min-width: 2.4rem;
+    height: 2.4rem;
+  }
+}
+@media (min-width: 64rem) {
+  .nav-links {
+    display: flex;
+    gap: 1.9rem;
+    margin-inline-start: 2.5rem;
+  }
+  .menu-btn {
+    display: none;
+  }
+}
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 1rem) 1.25rem 2rem;
+  background: var(--paper);
+  background-image: var(--grain);
+  transform: translateY(-102%);
+  transition: transform 0.45s var(--ease-out-soft);
+}
+[data-menu="open"] .drawer {
+  transform: none;
+}
+.drawer-links {
+  display: grid;
+  gap: 0.25rem;
+  margin-block: 2.5rem auto;
+}
+.drawer-links a {
+  padding-block: 0.6rem;
+  border-bottom: 1px dashed var(--line-2);
+  font-family: var(--font-display);
+  font-size: 2rem;
+}
+
+/* ════════════════════════════════════════════════════════════════ hero ═══ */
+
+/* No bottom padding: the ticker closes the hero and #work brings its own. */
+.hero {
+  padding-block: clamp(2rem, 6vw, 4.5rem) 0;
+}
+.hero-grid {
+  display: grid;
+  gap: 3.5rem;
+}
+@media (min-width: 64rem) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 4rem;
+  }
+  .hero-title {
+    font-size: clamp(2.3rem, 5.2vw, 4.6rem);
+  }
+}
+.hero-title {
+  margin-block: 1.4rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 8.4vw, 4.6rem);
+  font-weight: 500;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 40;
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+}
+.hero-title > span {
+  display: block;
+}
+.struck {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--ink-3);
+  /* The red pen replaces the browser's own line-through. */
+  text-decoration: none;
+}
+.struck svg {
+  position: absolute;
+  inset: -0.1em -0.06em;
+  width: calc(100% + 0.12em);
+  height: calc(100% + 0.2em);
+  overflow: visible;
+  pointer-events: none;
+}
+.struck path,
+.tick path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.struck path {
+  stroke: var(--pen);
+  stroke-width: 0.075em;
+}
+.emph {
+  font-style: italic;
+  font-weight: 450;
+  color: var(--ok);
+}
+.tick {
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  margin-inline-start: 0.12em;
+  vertical-align: 0.02em;
+  overflow: visible;
+}
+.tick path {
+  stroke: var(--ok);
+  stroke-width: 0.09em;
+}
+.hero-tagline {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--ink-2);
+}
+.hero-lede {
+  max-width: 34rem;
+  margin-top: 1.6rem;
+  font-size: 1.1rem;
+  color: var(--ink-2);
+}
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+}
+/* The pen line is revealed with a clip, not stroke dashes: dashes ignore
+   pathLength under vector-effect: non-scaling-stroke and break into pieces. */
+@keyframes pen {
+  from {
+    clip-path: inset(-30% 100% -30% -2%);
+  }
+  to {
+    clip-path: inset(-30% -2% -30% -2%);
+  }
+}
+@keyframes pen-rtl {
+  from {
+    clip-path: inset(-30% -2% -30% 100%);
+  }
+  to {
+    clip-path: inset(-30% -2% -30% -2%);
+  }
+}
+@keyframes ink-to-mute {
+  from {
+    color: var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .struck {
+    animation:
+      rise 0.7s var(--ease-out-soft) 0.15s both,
+      ink-to-mute 0.6s ease 1s both;
+  }
+  .struck svg {
+    animation: pen 0.6s cubic-bezier(0.6, 0.05, 0.3, 1) 0.95s both;
+  }
+  .tick {
+    animation: pen 0.45s ease-out 2.2s both;
+  }
+  html[dir="rtl"] .struck svg,
+  html[dir="rtl"] .tick {
+    animation-name: pen-rtl;
+  }
+  .hero-line-2 {
+    animation: rise 0.85s var(--ease-out-soft) 1.45s both;
+  }
+  .hero-tagline {
+    animation: rise 0.85s var(--ease-out-soft) 1.9s both;
+  }
+  .hero-after {
+    animation: rise 0.85s var(--ease-out-soft) 2.2s both;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════ ticker ═══ */
+
+.ticker {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-block: 1px dashed var(--line-2);
+}
+.ticker-label {
+  flex: none;
+  padding-block: 1.05rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+html[lang="ar"] .ticker-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+}
+.ticker-track {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ticker-row {
+  display: flex;
+  width: max-content;
+}
+.ticker-row ul {
+  display: flex;
+  flex: none;
+}
+.ticker-row li {
+  display: flex;
+  align-items: center;
+  gap: 2.1rem;
+  padding-inline-end: 2.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ticker-row li::after {
+  content: "✦";
+  color: var(--ok);
+  font-size: 0.7rem;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-rtl {
+  to {
+    transform: translateX(50%);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-row {
+    animation: marquee 48s linear infinite;
+  }
+  html[dir="rtl"] .ticker-row {
+    animation-name: marquee-rtl;
+  }
+  .ticker:hover .ticker-row {
+    animation-play-state: paused;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════ reveal ═══
+   Pure CSS, driven by scroll position: no script touches these elements, so
+   nothing can disagree with React during hydration in dev. Browsers without
+   scroll-driven animations simply show everything at once. */
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════ footer ═══ */
+
+.footer {
+  padding-block: 4rem calc(env(safe-area-inset-bottom, 0px) + 3rem);
+  border-top: 1px dashed var(--line-2);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.footer .barcode {
+  width: min(16rem, 70%);
+  height: 3rem;
+  margin: 1.4rem auto;
+  color: var(--ink);
+}
+html[lang="ar"] .footer {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+}
+
+/* ── the hero portrait, set like a byline beside the intro ────────── */
+
+.hero-byline {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 1.6rem;
+}
+.hero-byline .hero-lede {
+  margin-top: 0;
+}
+.hero-photo {
+  flex: none;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 1px var(--line-2),
+    0 12px 26px -16px rgb(48 32 16 / 0.6);
+}
+@media (max-width: 30rem) {
+  /* Next to a tall paragraph the portrait reads as a byline, so it sits
+     with the first line rather than floating in the middle. */
+  .hero-byline {
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  .hero-photo {
+    width: 4rem;
+    height: 4rem;
+  }
+}

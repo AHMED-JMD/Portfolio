@@ -1,0 +1,531 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   Case studies (components/CaseStudy.tsx). Each case sets --brand-* inline
+   from the client's own brand, so the stage reads as *their* product.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+.work-head {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+@media (min-width: 64rem) {
+  .work-head {
+    grid-template-columns: 1.25fr 1fr;
+    align-items: end;
+  }
+}
+.section-title {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 5.2vw, 4.4rem);
+  font-weight: 500;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 40;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.section-intro {
+  max-width: 30rem;
+  font-size: 1.1rem;
+  color: var(--ink-2);
+}
+
+.case + .case {
+  margin-top: clamp(5rem, 11vw, 9rem);
+}
+.case-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+html[lang="ar"] .case-top {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  letter-spacing: 0;
+}
+.case-no {
+  font-family: var(--font-fraunces), serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+.case-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+.case-name [lang] {
+  margin-inline-start: 0.5rem;
+  letter-spacing: 0;
+}
+.case-name [lang="ar"] {
+  font-family: var(--font-amiri), serif;
+  font-size: 1.05rem;
+}
+.case-name [lang="en"] {
+  color: var(--ink-3);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.case-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--ok);
+}
+.case-live::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 22%, transparent);
+}
+.case-title {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6.6vw, 5.5rem);
+  font-weight: 500;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 40;
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+}
+.case-lede {
+  max-width: 42rem;
+  margin-top: 1.1rem;
+  font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+  color: var(--ink-2);
+}
+
+/* ── the stage: the client's product, in the client's colours ───────── */
+
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding: clamp(1.25rem, 5vw, 4rem) clamp(1rem, 5vw, 4rem) 0;
+  border-radius: 1.75rem;
+  background: var(--brand-bg);
+}
+.stage-motif {
+  position: absolute;
+  z-index: -1;
+  inset-inline-end: clamp(-2rem, -1vw, 0rem);
+  top: clamp(-1rem, 1vw, 1.5rem);
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  opacity: 0.2;
+}
+.stage-motif i {
+  display: block;
+  width: clamp(3rem, 8vw, 6.5rem);
+  aspect-ratio: 0.5;
+  background: var(--brand-accent);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.stage-motif i:nth-child(2) {
+  width: clamp(4.2rem, 11vw, 9rem);
+  background: var(--brand-ink);
+}
+.stage-browser {
+  width: 100%;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+.stage-phone {
+  position: absolute;
+  inset-inline-end: clamp(0.75rem, 4vw, 4rem);
+  bottom: clamp(-5rem, -6vw, -2rem);
+  width: clamp(6.5rem, 21%, 13.5rem);
+}
+@media (min-width: 48rem) {
+  .stage-browser {
+    width: 82%;
+  }
+}
+
+/* ── device frames ─────────────────────────────────────────────────── */
+
+.frame {
+  overflow: hidden;
+  background: #fff;
+  box-shadow:
+    var(--lift),
+    0 0 0 1px rgb(0 0 0 / 0.06);
+}
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.frame-browser {
+  border-radius: 0.85rem;
+}
+.frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.1rem;
+  padding-inline: 0.85rem;
+  background: #f3efe7;
+  border-bottom: 1px solid #e4ddd0;
+}
+.frame-bar i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #d9d1c3;
+}
+.frame-url {
+  margin-inline: auto;
+  padding: 0.12rem 0.9rem;
+  border-radius: 99px;
+  background: #fff;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.66rem;
+  color: #6f675d;
+}
+.frame-phone {
+  padding: 0.42rem;
+  border-radius: 2rem;
+  background: #16130f;
+  box-shadow:
+    var(--lift),
+    0 0 0 1px rgb(255 255 255 / 0.07) inset;
+}
+.frame-phone img {
+  border-radius: 1.62rem;
+}
+
+/* ── the work order ────────────────────────────────────────────────── */
+
+.order {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: 1.25rem;
+  background: var(--card);
+}
+.order-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.85rem clamp(1.25rem, 3vw, 2rem);
+  border-bottom: 1.5px dashed var(--line-2);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.order-grid {
+  display: grid;
+}
+.order-cell {
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--line);
+}
+.order-cell:last-child {
+  border-bottom: 0;
+}
+@media (min-width: 56rem) {
+  .order-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .order-cell:nth-child(odd) {
+    border-inline-end: 1px solid var(--line);
+  }
+  .order-cell:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+}
+.order-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.order-label b {
+  font-weight: 600;
+  color: var(--ok);
+}
+html[lang="ar"] .order-bar,
+html[lang="ar"] .order-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+}
+.order-cell p {
+  font-size: 1.04rem;
+}
+.checks {
+  display: grid;
+  gap: 0.75rem;
+}
+.checks li {
+  position: relative;
+  padding-inline-start: 1.7rem;
+}
+.checks li::before {
+  content: "✓";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  font-weight: 700;
+  color: var(--ok);
+}
+.order-shot {
+  margin-top: 1.5rem;
+}
+
+.case-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.chip {
+  padding: 0.32rem 0.72rem;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-2);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   The rail: compact cards you scroll through, each opening its full case
+   study below. Less to read up front, everything still one tap away.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+.work-aside {
+  display: grid;
+  gap: 1.25rem;
+  align-content: end;
+}
+.rail-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.rail-hint {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+html[lang="ar"] .rail-hint {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.rail-nav button {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+.rail-nav button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.rail-nav svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+@media (max-width: 48rem) {
+  /* Touch devices scroll the row directly. */
+  .rail-nav button {
+    display: none;
+  }
+}
+
+.work-rail {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+  padding-block: clamp(2rem, 4vw, 3rem) 1.25rem;
+}
+.work-row {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  /* Lines the first card up with the page gutter, then bleeds to the edge. */
+  padding-inline: max(1rem, calc((100vw - 76rem) / 2));
+}
+.pcard {
+  display: flex;
+  flex: 0 0 min(85vw, 27rem);
+  flex-direction: column;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid var(--line-2);
+  border-radius: 1.4rem;
+  background: var(--card);
+  transition:
+    border-color 0.25s,
+    transform 0.25s var(--ease-out-soft);
+}
+.pcard:hover {
+  border-color: var(--ink-3);
+  transform: translateY(-3px);
+}
+.pcard-media {
+  padding: clamp(1rem, 3vw, 1.6rem) clamp(1rem, 3vw, 1.6rem) 0;
+  background: var(--brand-bg);
+}
+.pcard-media .frame {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+.pcard-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.3rem clamp(1rem, 3vw, 1.5rem) 1.4rem;
+}
+.pcard .case-top {
+  padding-top: 0;
+  border-top: 0;
+  gap: 0.4rem 1rem;
+}
+.pcard-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2.1rem);
+  font-weight: 500;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 40;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+.pcard-kind {
+  margin-top: -0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+html[lang="ar"] .pcard-kind {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.pcard-lede {
+  flex: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: 0.98rem;
+  color: var(--ink-2);
+}
+.pcard-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+.pcard-more {
+  min-height: 2.9rem;
+  padding-inline: 1.2rem;
+  font-size: 0.9rem;
+}
+.pcard-more svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform 0.25s;
+}
+.pcard-more[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+.pcard-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--line-2);
+  text-underline-offset: 0.22em;
+}
+.pcard-link:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ok);
+}
+.pcard-link svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+html.no-js .pcard-more {
+  display: none;
+}
+
+/* ── the panel a card opens ───────────────────────────────────────── */
+
+html.no-js .case[hidden] {
+  display: block;
+}
+.case + .case {
+  margin-top: 0;
+}
+.case {
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
+}
+.case:focus {
+  outline: none;
+}
+.case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.case-close svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  transform: rotate(180deg);
+}

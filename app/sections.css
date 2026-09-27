@@ -1,0 +1,543 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   Everything below the work rail: how I deliver, Masar, Flutter, the ledger
+   of smaller work, experience, quotes and contact.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── how I deliver: headline and one paragraph, nothing else ─────── */
+
+.delivery .work-head {
+  margin-bottom: 0;
+}
+/* Two lines of copy don't need a full section's worth of space beneath them. */
+.delivery {
+  padding-block: clamp(4.5rem, 10vw, 8.5rem) clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ── captions and solo stages ─────────────────────────────────────── */
+
+.stage-note {
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+html[lang="ar"] .stage-note {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+}
+.stage.is-solo .stage-browser {
+  width: 100%;
+}
+/* Two customers, two frames side by side. */
+.stage.is-duo {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  padding-bottom: clamp(1.25rem, 5vw, 4rem);
+}
+@media (min-width: 56rem) {
+  .stage.is-duo {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.stage.is-duo .stage-browser {
+  width: 100%;
+  border-radius: 0.85rem;
+}
+@media (min-width: 56rem) {
+  }
+
+/* ── click-to-play demo clips ─────────────────────────────────────── */
+
+.player {
+  position: relative;
+}
+.player video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #0f0d0b;
+}
+.player-btn {
+  position: absolute;
+  inset-inline-start: 1rem;
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 1.05rem 0.45rem 0.45rem;
+  border-radius: 99px;
+  background: rgb(20 17 14 / 0.84);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 12px 26px -12px rgb(0 0 0 / 0.7);
+  transition: transform 0.25s var(--ease-out-soft);
+}
+html[dir="rtl"] .player-btn {
+  padding: 0.45rem 0.45rem 0.45rem 1.05rem;
+}
+.player-btn:hover {
+  transform: scale(1.04);
+}
+.player-btn svg {
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0.35rem;
+  border-radius: 50%;
+  background: #17724a;
+}
+.player.is-playing .player-btn {
+  display: none;
+}
+@media (max-width: 40rem) {
+  .player-btn {
+    inset-inline-start: 0.6rem;
+    bottom: 0.6rem;
+    gap: 0.45rem;
+    font-size: 0.74rem;
+  }
+  .player-btn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.3rem;
+  }
+}
+
+/* ── Masar: now building ──────────────────────────────────────────── */
+
+.building {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: clamp(5rem, 11vw, 9rem);
+  padding: clamp(1.4rem, 4vw, 3rem);
+  border: 1px solid var(--line-2);
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(60rem 30rem at 100% 0%, rgb(139 108 246 / 0.1), transparent 60%),
+    var(--card);
+}
+@media (min-width: 64rem) {
+  .building {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+  }
+}
+.building .case-top {
+  padding-top: 0;
+  border-top: 0;
+}
+.building-pill {
+  padding: 0.3rem 0.7rem;
+  border-radius: 99px;
+  background: #8b6cf6;
+  color: #fff;
+}
+.building-status {
+  color: #b7791f;
+}
+[data-theme="dark"] .building-status {
+  color: #f0b35a;
+}
+.building-title {
+  margin-block: 1.4rem 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.building-body {
+  margin-bottom: 1.4rem;
+  color: var(--ink-2);
+}
+.building .chips {
+  margin-top: 1.6rem;
+}
+.building-shots {
+  display: grid;
+  gap: 1rem;
+}
+.building-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.9rem;
+  box-shadow:
+    var(--lift),
+    0 0 0 1px var(--line);
+}
+
+/* ── Flutter: a dark chapter in both themes ───────────────────────── */
+
+.flutter {
+  --paper: #15120f;
+  --card: #1d1915;
+  --ink: #f1ebe1;
+  --ink-2: #c2b8aa;
+  --ink-3: #928878;
+  --line: rgb(241 235 225 / 0.1);
+  --line-2: rgb(241 235 225 / 0.2);
+  --ok: #4cc488;
+  background: var(--paper);
+  color: var(--ink);
+}
+[data-theme="dark"] .flutter {
+  --paper: #0b0a08;
+  border-block: 1px solid var(--line);
+}
+.flutter-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 64rem) {
+  .flutter-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+.apps {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+@media (min-width: 40rem) {
+  .apps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 64rem) {
+  .apps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.4rem;
+  border: 1px dashed var(--line-2);
+  border-radius: 1rem;
+  background: var(--card);
+}
+.app-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.app-name {
+  font-size: 1.35rem;
+}
+.app-year {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+.app-body {
+  flex: 1;
+  font-size: 0.98rem;
+  color: var(--ink-2);
+}
+.app-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.app-tags li {
+  padding: 0.2rem 0.55rem;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--ok) 16%, transparent);
+  color: var(--ok);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+.depth {
+  margin-top: 2.5rem;
+  padding-top: 1.4rem;
+  border-top: 1.5px dashed var(--line-2);
+}
+.depth-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+html[lang="ar"] .depth-title {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+.depth-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.8rem;
+  margin-top: 0.9rem;
+}
+.depth-list li::before {
+  content: "✓ ";
+  color: var(--ok);
+  font-weight: 700;
+}
+
+/* ── more work: receipt lines ─────────────────────────────────────── */
+
+.more-list {
+  border-top: 1.5px dashed var(--line-2);
+}
+.more-row {
+  display: grid;
+  gap: 0.4rem 2rem;
+  padding-block: 1.4rem;
+  border-bottom: 1px dashed var(--line-2);
+}
+@media (min-width: 56rem) {
+  .more-row {
+    grid-template-columns: 9rem minmax(0, 1fr) 16rem;
+    align-items: baseline;
+  }
+}
+.more-year,
+.more-stack {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+@media (min-width: 56rem) {
+  .more-stack {
+    text-align: end;
+  }
+}
+.more-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.45rem;
+}
+.more-name a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: underline;
+  text-decoration-color: var(--line-2);
+  text-underline-offset: 0.2em;
+}
+.more-name a:hover {
+  text-decoration-color: var(--ok);
+}
+.more-name svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+.more-status {
+  padding: 0.15rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 99px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: #b7791f;
+}
+.more-body {
+  margin-top: 0.3rem;
+  color: var(--ink-2);
+}
+
+/* ── experience ───────────────────────────────────────────────────── */
+
+.ledger {
+  border-top: 1.5px dashed var(--line-2);
+}
+.ledger-row {
+  display: grid;
+  gap: 0.5rem 2rem;
+  padding-block: 1.6rem;
+  border-bottom: 1px dashed var(--line-2);
+}
+@media (min-width: 48rem) {
+  .ledger-row {
+    grid-template-columns: 11rem minmax(0, 1fr);
+  }
+}
+.ledger-when {
+  padding-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+.ledger-role {
+  font-size: 1.55rem;
+}
+.ledger-org {
+  margin-top: 0.15rem;
+  font-weight: 600;
+}
+.ledger-body {
+  max-width: 44rem;
+  margin-top: 0.45rem;
+  color: var(--ink-2);
+}
+.facts {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+@media (min-width: 48rem) {
+  .facts {
+    grid-template-columns: 1.3fr 1fr;
+  }
+  .fact-wide {
+    grid-column: 1 / -1;
+  }
+}
+.fact {
+  padding: 1.4rem;
+  border: 1px solid var(--line-2);
+  border-radius: 1.1rem;
+  background: var(--card);
+}
+.fact-title {
+  margin-bottom: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+html[lang="ar"] .fact-title {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+.fact-main {
+  font-weight: 600;
+}
+.fact-sub {
+  margin-block: 0.2rem 0.6rem;
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+.skill-groups {
+  display: grid;
+  gap: 1rem 2rem;
+}
+@media (min-width: 48rem) {
+  .skill-groups {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ── quotes ───────────────────────────────────────────────────────── */
+
+.quotes {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+@media (min-width: 56rem) {
+  .quotes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.quote {
+  padding: 1.6rem;
+  border: 1px solid var(--line-2);
+  border-radius: 1.1rem;
+  background: var(--card);
+}
+.quote blockquote {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+.quote-by {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+.quote-by span {
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+/* ── contact: the visitor's own blank receipt ─────────────────────── */
+
+.contact-grid {
+  display: grid;
+  gap: 3.5rem;
+}
+@media (min-width: 64rem) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+.contact-body {
+  margin-top: 1.1rem;
+}
+.contact-list {
+  display: grid;
+  gap: 1.1rem 2rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1.5px dashed var(--line-2);
+}
+@media (min-width: 40rem) {
+  .contact-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.contact-list dt {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+html[lang="ar"] .contact-list dt {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+}
+.contact-list dd {
+  margin-top: 0.2rem;
+  font-weight: 500;
+}
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: underline;
+  text-decoration-color: var(--line-2);
+  text-underline-offset: 0.22em;
+}
+.contact-list a:hover {
+  text-decoration-color: var(--ok);
+}
+.contact-list svg {
+  width: 0.9em;
+  height: 0.9em;
+}
+.contact-receipt {
+  width: min(100%, 21rem);
+  margin-inline: auto;
+  transform: rotate(2deg);
+  filter: drop-shadow(0 22px 26px rgb(48 32 16 / 0.22));
+}
+[data-theme="dark"] .contact-receipt {
+  filter: drop-shadow(0 0 36px rgb(255 238 205 / 0.08)) drop-shadow(0 18px 22px rgb(0 0 0 / 0.6));
+}
+.r-status.is-waiting {
+  color: #b7791f;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .r-status.is-waiting::after {
+    content: "▍";
+    margin-inline-start: 0.2rem;
+    animation: blink 1.1s steps(1) infinite;
+  }
+}
