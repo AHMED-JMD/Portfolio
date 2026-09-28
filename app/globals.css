@@ -72,17 +72,17 @@
 
 /* Arabic swaps the faces; everything else reads the same tokens. */
 html[lang="ar"] {
-  --font-display: var(--font-amiri), var(--font-fraunces), serif;
-  --font-sans: var(--font-plex-ar), var(--font-geist), system-ui, sans-serif;
+  --font-display: var(--font-cairo), system-ui, sans-serif;
+  --font-sans: var(--font-cairo), system-ui, sans-serif;
   /* Geist Mono has no Arabic; without this, Arabic in mono styles falls back
      to a system monospace face that draws every letter unjoined. */
-  --font-mono: var(--font-geist-mono), var(--font-plex-ar), ui-monospace, monospace;
+  --font-mono: var(--font-geist-mono), var(--font-cairo), ui-monospace, monospace;
 }
 
-/* Amiri's ascenders and descenders need more room than Fraunces — at the
-   Latin line-heights the struck line collides with the headline below. */
-html[lang="ar"] :is(.hero-title, .case-title, .section-title, .rule-quote, .building-title) {
-  line-height: 1.3;
+/* Cairo sits taller in the line than Fraunces, so Arabic headlines need a
+   little more room than the Latin line-heights give them. */
+html[lang="ar"] :is(.hero-title, .case-title, .section-title, .building-title) {
+  line-height: 1.18;
   letter-spacing: 0;
 }
 

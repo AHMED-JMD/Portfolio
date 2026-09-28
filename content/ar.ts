@@ -567,6 +567,7 @@ const ar: Dictionary = {
           items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vite"],
         },
         { name: "التشغيل", items: ["Linux VPS", "Git", "Vercel", "Docker"] },
+        { name: "الذكاء الاصطناعي", items: ["Claude Opus 5.5", "GitHub Copilot"] },
       ],
     },
   },

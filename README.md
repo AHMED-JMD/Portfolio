@@ -83,10 +83,9 @@ browses on mobile data, so this matters.
 
 ## Languages
 
-English is the root. A visitor whose device language is Arabic is sent to
-`/ar/` on their first visit (the script in `app/(en)/layout.tsx`); once
-someone uses the language switch, their choice wins. Each locale is its own
-root layout so `lang` and `dir` are correct on `<html>`.
+English is the site root and what every visitor sees first; Arabic lives at
+`/ar/` behind the language switch in the header. Each locale is its own root
+layout so `lang` and `dir` are correct on `<html>`.
 
 ## Deploy
 

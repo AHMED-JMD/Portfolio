@@ -1,5 +1,5 @@
 /**
- * All client-side behaviour, as one inline script: language routing, theme,
+ * All client-side behaviour, as one inline script: theme,
  * header state, mobile drawer, active nav link, the receipt printer and the
  * demo play buttons. (Scroll reveals are pure CSS — see .reveal in globals.css.)
  *
@@ -19,20 +19,6 @@ const SCRIPT = `
 (function () {
   var root = document.documentElement;
 
-  /* A visitor whose device is set to Arabic lands on /ar/ — unless they've
-     picked a language with the switch (stored below). Only the English root
-     does this, so a shared /ar/ or English link is never overridden. This is
-     the first thing in <body>, so it runs before any content paints. */
-  if (root.lang === 'en' && location.pathname === '/') {
-    try {
-      var pref = localStorage.getItem('lang');
-      var device = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-      if (pref !== 'en' && (pref === 'ar' || /^ar\\b/i.test(device))) {
-        location.replace('/ar/' + location.hash);
-        return;
-      }
-    } catch (e) {}
-  }
 
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* Latin digits in both languages, matching the product screenshots. */
@@ -70,8 +56,6 @@ const SCRIPT = `
     var el = e.target;
     if (!(el instanceof Element)) return;
     if (el.closest('[data-theme-toggle]')) return setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
-    var langLink = el.closest('[data-lang-link]');
-    if (langLink) { try { localStorage.setItem('lang', langLink.getAttribute('hreflang')); } catch (err) {} }
     if (el.closest('[data-menu-open]')) return setMenu(true);
     if (el.closest('[data-menu-close]')) return setMenu(false);
     if (el.closest('[data-printer-next]')) return printer.go(1);

@@ -110,7 +110,7 @@ html[lang="ar"] .printer-top {
   mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--z) 100%;
 }
 html[lang="ar"] .receipt-paper {
-  font-family: var(--font-plex-ar), var(--font-geist-mono), monospace;
+  font-family: var(--font-cairo), var(--font-geist-mono), monospace;
   font-size: 0.8rem;
 }
 
@@ -215,7 +215,7 @@ html[lang="ar"] .r-thanks {
   opacity: 0.9;
 }
 html[lang="ar"] .stamp {
-  font-family: var(--font-plex-ar), sans-serif;
+  font-family: var(--font-cairo), sans-serif;
   font-size: 1rem;
   letter-spacing: 0;
 }

@@ -1,15 +1,14 @@
-import { Fraunces, Geist, Geist_Mono, IBM_Plex_Sans_Arabic, Amiri } from "next/font/google";
+import { Cairo, Fraunces, Geist, Geist_Mono } from "next/font/google";
 
 /**
- * Latin: Fraunces for display (an editorial serif with a soft, hand-made feel),
- * Geist for text, Geist Mono for the receipts.
- * Arabic: Amiri for display (the Naskh counterpart to Fraunces), IBM Plex Sans
- * Arabic for text.
+ * Latin: Fraunces for display (an editorial serif with a soft, hand-made
+ * feel), Geist for text, Geist Mono for the receipts.
+ * Arabic: Cairo throughout — one family for headlines, text and receipts.
  *
  * next/font self-hosts every file at build time, so the live site makes no
- * request to Google. The Arabic faces are not preloaded: the English page only
- * needs a few Arabic glyphs (the language switch), and unicode-range keeps the
- * files from downloading at all until an Arabic character is on screen.
+ * request to Google. Cairo is variable, so one file covers every weight, and
+ * it carries Latin glyphs too — Latin words inside Arabic copy stay in the
+ * same voice instead of switching face mid-sentence.
  */
 export const fraunces = Fraunces({
   subsets: ["latin"],
@@ -31,22 +30,13 @@ export const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const plexArabic = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-ar",
+export const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  variable: "--font-cairo",
   display: "swap",
   preload: false,
 });
 
-export const amiri = Amiri({
-  subsets: ["arabic"],
-  weight: ["400", "700"],
-  variable: "--font-amiri",
-  display: "swap",
-  preload: false,
-});
-
-export const fontVariables = [fraunces, geist, geistMono, plexArabic, amiri]
+export const fontVariables = [fraunces, geist, geistMono, cairo]
   .map((f) => f.variable)
   .join(" ");

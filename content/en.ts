@@ -577,6 +577,7 @@ const en = {
           items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vite"],
         },
         { name: "Ops", items: ["Linux VPS", "Git", "Vercel", "Docker"] },
+        { name: "AI in the loop", items: ["Claude Opus 5.5", "GitHub Copilot"] },
       ],
     },
   },

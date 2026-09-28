@@ -68,7 +68,7 @@ html[lang="ar"] .case-top {
   letter-spacing: 0;
 }
 .case-name [lang="ar"] {
-  font-family: var(--font-amiri), serif;
+  font-family: var(--font-cairo), sans-serif;
   font-size: 1.05rem;
 }
 .case-name [lang="en"] {
